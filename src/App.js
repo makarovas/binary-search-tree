@@ -13,9 +13,15 @@ function App() {
   const [verify, setVerify] = useState(false);
   const [text, setText] = useState();
 
-  const [treeBranch, setNode] = React.useState({});
+  const [treeBranch, setTreeBranch] = React.useState({});
 
-  const handleClick = (nodeData) => setNode(nodeData);
+  const handleClick = (nodeData) => setTreeBranch(nodeData);
+
+  const reset = () => {
+    setData(initialState);
+    // Check this line
+    setTreeBranch({});
+  };
 
   function Node(value) {
     this.value = value;
@@ -123,7 +129,7 @@ function App() {
   return (
     <main className="App">
       <div className="tree-container">
-        <CachedTreeView treeBranch={treeBranch} />
+        <CachedTreeView treeBranch={treeBranch} onReset={reset} />
         <DBTreeView data={formatData(data)} handleClick={handleClick} />
       </div>
 
@@ -136,6 +142,7 @@ function App() {
         searchNumber={searchNumber}
         verify={verify}
         text={text}
+        reset={reset}
       />
     </main>
   );

@@ -1,36 +1,49 @@
-import React from 'react';
-import ExibeOrdem from './ExibeOrdem';
+import React from "react";
+import ExibeOrdem from "./ExibeOrdem";
 
-const Sidebar = ({ verify,text,array,searchNumber,current, setCurrent, insert, data }) => {
+const Sidebar = ({
+  verify,
+  text,
+  array,
+  searchNumber,
+  current,
+  setCurrent,
+  insert,
+  data,
+  reset,
+}) => {
   return (
-
     <div className="sidebar-wrapper">
-        <input
-          className="next-node-input fullwidth next-node"
-          type="number"
-          name="current"
-          value={current}
-          onChange={e => setCurrent(e.target.value)}
-          placeholder="Enter the value"
-        />
-        <button
-          className="next-node-button fullwidth next-node"
-          disabled={!current || isNaN(current)}
-          onClick={() => {
-            insert(parseInt(current, 10));
-            setCurrent('');
-          }}
-        >
-          +
-        </button>
-          <button
-            className="next-node-button fullwidth next-node"
-            disabled={!current || isNaN(current)}
-            onClick={() => searchNumber(parseInt(current,10))}
-          > 
-          Edit
-          </button>
-        {/* <div style = {{paddingTop:2}}>
+      <input
+        className="next-node-input fullwidth next-node"
+        type="number"
+        name="current"
+        value={current}
+        onChange={(e) => setCurrent(e.target.value)}
+        placeholder="Enter the value"
+      />
+      <button
+        className="next-node-button fullwidth next-node"
+        disabled={!current || isNaN(current)}
+        onClick={() => {
+          insert(parseInt(current, 10));
+          setCurrent("");
+        }}
+      >
+        +
+      </button>
+      <button
+        className="next-node-button fullwidth next-node"
+        disabled={!current || isNaN(current)}
+        onClick={() => searchNumber(parseInt(current, 10))}
+      >
+        Edit
+      </button>
+      <button className="next-node-button fullwidth next-node" onClick={reset}>
+        Reset
+      </button>
+
+      {/* <div style = {{paddingTop:2}}>
           <button
             className="next-node-button fullwidth"
             disabled={false}
@@ -57,12 +70,15 @@ const Sidebar = ({ verify,text,array,searchNumber,current, setCurrent, insert, d
               Pos ordem
           </button>
         </div> */}
-    <div className= "container-div"> 
-      {verify && <span style = {{fontSize:15,color:"red",fontWeight:"bold"}}>{text}</span>}
-      {array.length > 0 && <ExibeOrdem array = {array}/>}
+      <div className="container-div">
+        {verify && (
+          <span style={{ fontSize: 15, color: "red", fontWeight: "bold" }}>
+            {text}
+          </span>
+        )}
+        {array.length > 0 && <ExibeOrdem array={array} />}
+      </div>
     </div>
-    </div>
-    
   );
 };
 
