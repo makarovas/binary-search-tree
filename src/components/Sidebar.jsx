@@ -11,6 +11,7 @@ const Sidebar = ({
   insert,
   data,
   reset,
+  passDataOnClick,
 }) => {
   return (
     <div className="sidebar-wrapper">
@@ -24,7 +25,10 @@ const Sidebar = ({
       <button className="next-node-button fullwidth next-node" onClick={reset}>
         Reset
       </button>
-      <button className="next-node-to-cash  next-node" onClick={() => {}}>
+      <button
+        className="next-node-to-cash  next-node"
+        onClick={passDataOnClick}
+      >
         {"<Download to the Cash<"}
       </button>
       <input
@@ -45,41 +49,6 @@ const Sidebar = ({
       >
         +
       </button>
-      {/* <div style = {{paddingTop:2}}>
-          <button
-            className="next-node-button fullwidth"
-            disabled={false}
-            onClick={() => em_ordem(data.root)}
-          > 
-          Em ordem
-          </button>
-        </div>
-        <div style = {{paddingTop:2}}>
-          <button
-            className="next-node-button fullwidth"
-            disabled={false}
-            onClick={() => pre_ordem(data.root)}
-          > 
-          Pre ordem
-          </button>
-        </div>
-        <div style = {{paddingTop:2}}>
-          <button
-                className="next-node-button fullwidth"
-                disabled={false}
-                onClick={() => pos_ordem(data.root)}
-              > 
-              Pos ordem
-          </button>
-        </div> */}
-      <div className="container-div">
-        {verify && (
-          <span style={{ fontSize: 15, color: "red", fontWeight: "bold" }}>
-            {text}
-          </span>
-        )}
-        {array.length > 0 && <ExibeOrdem array={array} />}
-      </div>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
 import { initialState } from "./initData";
-// import { insert, searchNumber, formatData } from "./utils";
 import DBTreeView from "./components/DBTreeView";
 import CachedTreeView from "./components/CachedTreeView";
 import Sidebar from "./components/Sidebar";
@@ -14,13 +13,23 @@ function App() {
   const [text, setText] = useState();
 
   const [treeBranch, setTreeBranch] = React.useState({});
+  const [choosedBranch, setChoosedBranch] = React.useState([]);
+  const [onClickData, setOnClickData] = React.useState([]);
+
+  React.useEffect(() => {
+    if (Object.keys(treeBranch).length && treeBranch) {
+      setChoosedBranch((prev) => [...prev, treeBranch]);
+    }
+  }, [treeBranch]);
 
   const handleClick = (nodeData) => setTreeBranch(nodeData);
 
+  const passDataOnClick = () => setOnClickData(choosedBranch);
+
   const reset = () => {
     setData(initialState);
-    // Check this line
     setTreeBranch({});
+    setOnClickData([]);
   };
 
   function Node(value) {
@@ -129,7 +138,7 @@ function App() {
   return (
     <main className="App">
       <div className="tree-container">
-        <CachedTreeView treeBranch={treeBranch} onReset={reset} />
+        <CachedTreeView treeBranch={onClickData} onReset={reset} />
         <DBTreeView data={formatData(data)} handleClick={handleClick} />
       </div>
 
@@ -143,6 +152,7 @@ function App() {
         verify={verify}
         text={text}
         reset={reset}
+        passDataOnClick={passDataOnClick}
       />
     </main>
   );
