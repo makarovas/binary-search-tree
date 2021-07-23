@@ -14,13 +14,26 @@ const Sidebar = ({
 }) => {
   return (
     <div className="sidebar-wrapper">
+      <button
+        className="next-node-button fullwidth next-node"
+        disabled={!current || isNaN(current)}
+        onClick={() => searchNumber(parseInt(current, 10))}
+      >
+        Edit
+      </button>
+      <button className="next-node-button fullwidth next-node" onClick={reset}>
+        Reset
+      </button>
+      <button className="next-node-to-cash  next-node" onClick={() => {}}>
+        {"<Download to the Cash<"}
+      </button>
       <input
-        className="next-node-input fullwidth next-node"
+        className="next-node-input  next-node"
         type="number"
         name="current"
         value={current}
         onChange={(e) => setCurrent(e.target.value)}
-        placeholder="Enter the value"
+        placeholder="Enter node to the tree"
       />
       <button
         className="next-node-button fullwidth next-node"
@@ -32,17 +45,6 @@ const Sidebar = ({
       >
         +
       </button>
-      <button
-        className="next-node-button fullwidth next-node"
-        disabled={!current || isNaN(current)}
-        onClick={() => searchNumber(parseInt(current, 10))}
-      >
-        Edit
-      </button>
-      <button className="next-node-button fullwidth next-node" onClick={reset}>
-        Reset
-      </button>
-
       {/* <div style = {{paddingTop:2}}>
           <button
             className="next-node-button fullwidth"

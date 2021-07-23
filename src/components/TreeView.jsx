@@ -1,17 +1,11 @@
 import React from "react";
 import Tree from "react-d3-tree";
 
-const containerStyles = {
-  width: "100%",
-  height: "100vh",
-};
-
-const DBTreeView = ({ data, handleClick }) => {
+const TreeView = ({ changeTree, branch }) => {
   return (
-    <div id="treeWrapper">
+    <>
       <Tree
-        style={containerStyles}
-        onClick={handleClick}
+        onClick={changeTree}
         styles={{
           nodes: {
             node: {
@@ -19,7 +13,7 @@ const DBTreeView = ({ data, handleClick }) => {
                 fill: "#d16ba5",
                 name: {
                   fontFamily: `'Roboto', sans-serif`,
-                  fontSize: "1.6rem",
+                  fontSize: "2rem",
                 },
               },
             },
@@ -28,7 +22,7 @@ const DBTreeView = ({ data, handleClick }) => {
                 fill: "#5ffbf1",
                 name: {
                   fontFamily: `'Roboto', sans-serif`,
-                  fontSize: "1.6rem",
+                  fontSize: "2rem",
                 },
               },
             },
@@ -36,14 +30,14 @@ const DBTreeView = ({ data, handleClick }) => {
         }}
         collapsible={false}
         translate={{
-          x: 62,
-          y: 422,
-          scale: 0.2,
+          x: 100,
+          y: 60,
+          scale: 0.5,
         }}
-        data={data}
+        data={branch}
       />
-    </div>
+    </>
   );
 };
 
-export default DBTreeView;
+export default TreeView;
