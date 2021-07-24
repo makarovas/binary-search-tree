@@ -12,6 +12,7 @@ const Sidebar = ({
   data,
   reset,
   passDataOnClick,
+  choosedBranch,
 }) => {
   return (
     <div className="sidebar-wrapper">
@@ -20,14 +21,21 @@ const Sidebar = ({
         disabled={!current || isNaN(current)}
         onClick={() => searchNumber(parseInt(current, 10))}
       >
-        Edit
+        Edit Node value
       </button>
       <button className="next-node-button fullwidth next-node" onClick={reset}>
-        Reset
+        Reset changes
+      </button>
+      <button
+        className="next-node-button fullwidth next-node"
+        onClick={() => {}}
+      >
+        Apply changes to db
       </button>
       <button
         className="next-node-to-cash  next-node"
         onClick={passDataOnClick}
+        disabled={Boolean(!choosedBranch.length)}
       >
         {"<Download to the Cash<"}
       </button>

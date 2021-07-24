@@ -14,7 +14,7 @@ function App() {
 
   const [treeBranch, setTreeBranch] = React.useState({});
   const [choosedBranch, setChoosedBranch] = React.useState([]);
-  const [onClickData, setOnClickData] = React.useState([]);
+  const [onApplyLoadedData, setOnClickData] = React.useState([]);
 
   React.useEffect(() => {
     if (Object.keys(treeBranch).length && treeBranch) {
@@ -138,7 +138,7 @@ function App() {
   return (
     <main className="App">
       <div className="tree-container">
-        <CachedTreeView treeBranch={onClickData} onReset={reset} />
+        <CachedTreeView treeBranch={onApplyLoadedData} onReset={reset} />
         <DBTreeView data={formatData(data)} handleClick={handleClick} />
       </div>
 
@@ -153,6 +153,7 @@ function App() {
         text={text}
         reset={reset}
         passDataOnClick={passDataOnClick}
+        choosedBranch={choosedBranch}
       />
     </main>
   );

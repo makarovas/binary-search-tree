@@ -7,11 +7,21 @@ const containerStyles = {
 };
 
 const DBTreeView = ({ data, handleClick }) => {
+  // const [clickedNodeStyle, changeClickedNodeStyle] = React.useState(false);
+
+  // const nodeHandleClick = (nodeData) => {
+  //   handleClick(nodeData);
+  //   changeClickedNodeStyle((prev) => !prev);
+  // };
+
   return (
     <div id="treeWrapper">
       <Tree
+        rootNodeClassName="node__root"
+        transitionDuration={0}
         style={containerStyles}
         onClick={handleClick}
+        separation={{ siblings: 0.5, nonSiblings: 0.5 }}
         styles={{
           nodes: {
             node: {
@@ -25,7 +35,8 @@ const DBTreeView = ({ data, handleClick }) => {
             },
             leafNode: {
               circle: {
-                fill: "#5ffbf1",
+                fill: "#d16ba5",
+                // fill: "#5ffbf1",
                 name: {
                   fontFamily: `'Roboto', sans-serif`,
                   fontSize: "1.6rem",

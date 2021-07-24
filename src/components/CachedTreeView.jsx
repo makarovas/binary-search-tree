@@ -17,11 +17,22 @@ const CachedTreeView = ({ treeBranch, onReset }) => {
     <div className="branchWrapper">
       {treeBranch
         .filter((item) => Object.keys(item).length)
-        .map((branch, index) => (
-          <div id="treeWrapper" key={`${index} - ${branch.name}`}>
-            <TreeView branch={branch} changeTree={changeTree} />
-          </div>
-        ))}
+        .filter((v, i, a) => a.findIndex((t) => t.name === v.name) === i)
+        // .filter(
+        //   (v, i, a) =>
+        //     a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i
+        // )
+        .map((branch, index) => {
+          console.log(branch.name);
+          return (
+            <div id="treeWrapper" key={`${index} - ${branch.id}`}>
+              <TreeView
+                branch={branch}
+                changeTree={changeTree}
+              />
+            </div>
+          );
+        })}
     </div>
   );
 };
