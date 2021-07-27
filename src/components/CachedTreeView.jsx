@@ -5,13 +5,19 @@ const CachedTreeView = ({ treeBranch, onReset }) => {
   const changeTree = (nodeData) => console.log(nodeData);
   const [list, setList] = React.useState([]);
 
-  // React.useEffect(() => {
-  //   if (Object.keys(treeBranch).length && treeBranch) {
-  //     setList((prev) => [...prev, treeBranch]);
-  //   } else {
-  //     setList([]);
-  //   }
-  // }, [treeBranch]);
+  React.useEffect(() => {
+    if (Object.keys(treeBranch).length && treeBranch) {
+      setList((prev) => [...prev, treeBranch]);
+    } else {
+      setList([]);
+    }
+  }, [treeBranch]);
+
+  React.useCallback(() => {
+    if (onReset) {
+      setList([]);
+    }
+  }, [onReset]);
 
   return (
     <div className="branchWrapper">
