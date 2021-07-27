@@ -13,6 +13,7 @@ function App() {
   const [text, setText] = useState();
 
   const [treeBranch, setTreeBranch] = React.useState({});
+  console.log(treeBranch);
   const [choosedBranch, setChoosedBranch] = React.useState([]);
   const [onApplyLoadedData, setOnClickData] = React.useState([]);
 

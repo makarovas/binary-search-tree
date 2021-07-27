@@ -2,10 +2,10 @@
   "name": "binary-search-tree",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://binary-search-tree.netlify.com",
+  "homepage": "https://github.com/makarovas",
   "dependencies": {
     "react": "^16.8.6",
-    "react-d3-tree": "^1.13.0",
+    "react-d3-tree": "2.0.0-beta.1",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "react-transition-group": "^4.3.0",

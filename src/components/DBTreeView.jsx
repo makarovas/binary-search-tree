@@ -6,27 +6,59 @@ const containerStyles = {
   height: "100vh",
 };
 
-const DBTreeView = ({ data, handleClick }) => {
-  // const [clickedNodeStyle, changeClickedNodeStyle] = React.useState(false);
+export const Node = ({ nodeDatum, foreignObjectProps, handleClick }) => {
+  const [state, toggleState] = React.useState(false);
+  const handleClickState = () => {
+    toggleState((prev) => !prev);
+    handleClick(nodeDatum);
+  };
+  return (
+    <g onClick={handleClickState}>
+      <circle r={15} fill={state ? "red" : "black"}></circle>
 
-  // const nodeHandleClick = (nodeData) => {
-  //   handleClick(nodeData);
-  //   changeClickedNodeStyle((prev) => !prev);
-  // };
+      <foreignObject {...foreignObjectProps}>
+        <h3 style={{ textAlign: "center" }}>{nodeDatum.name}</h3>
+      </foreignObject>
+    </g>
+  );
+};
+
+const renderForeignObjectNode = ({
+  nodeDatum,
+  foreignObjectProps,
+  handleClick,
+}) => (
+  <Node
+    handleClick={handleClick}
+    nodeDatum={nodeDatum}
+    foreignObjectProps={foreignObjectProps}
+  />
+);
+
+const DBTreeView = ({ data, handleClick }) => {
+  const nodeSize = { x: 40, y: 60 };
+
+  const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
 
   return (
     <div id="treeWrapper">
       <Tree
-        rootNodeClassName="node__root"
+        renderCustomNodeElement={(rd3tProps, nodeData) =>
+          renderForeignObjectNode({
+            ...rd3tProps,
+            foreignObjectProps,
+            handleClick,
+            nodeData,
+          })
+        }
         transitionDuration={0}
         style={containerStyles}
-        onClick={handleClick}
         separation={{ siblings: 0.5, nonSiblings: 0.5 }}
         styles={{
           nodes: {
             node: {
               circle: {
-                fill: "#d16ba5",
+                fill: "black",
                 name: {
                   fontFamily: `'Roboto', sans-serif`,
                   fontSize: "1.6rem",
@@ -35,7 +67,7 @@ const DBTreeView = ({ data, handleClick }) => {
             },
             leafNode: {
               circle: {
-                fill: "#d16ba5",
+                fill: "black",
                 // fill: "#5ffbf1",
                 name: {
                   fontFamily: `'Roboto', sans-serif`,

@@ -225,14 +225,14 @@ p {
   opacity: 0.01;
   transition: opacity 500ms ease-in;
 }
-.leafNodeBase:active {
+/* .leafNodeBase:active {
   stroke: green !important;
 }
 
 .leafNodeBase > circle:active {
   fill: greenyellow !important;
 }
-
+*/
 .nodeBase > circle:active {
-  fill: greenyellow !important;
+  fill: greenyellow;
 }
