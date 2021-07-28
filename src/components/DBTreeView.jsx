@@ -1,23 +1,36 @@
 import React from "react";
 import Tree from "react-d3-tree";
+// import uuid from "uuid";
 
 const containerStyles = {
   width: "100%",
   height: "100vh",
 };
 
+// const getParent = function (root, n, parent) {
+//   if (!root) return null;
+//   if (root.val === n) return parent;
+//   return getParent(root.left, n, root) || getParent(root.right, n, root);
+// };
+
+// const uniqid = uuid();
 export const Node = ({ nodeDatum, foreignObjectProps, handleClick }) => {
   const [state, toggleState] = React.useState(false);
+
   const handleClickState = () => {
     toggleState((prev) => !prev);
+    // handleClick(nodeDatum, uniqid);
     handleClick(nodeDatum);
   };
+  const name = nodeDatum.name.substr(0, nodeDatum.name.indexOf(","));
   return (
     <g onClick={handleClickState}>
-      <circle r={15} fill={state ? "red" : "black"}></circle>
+      <circle r={15} fill={state ? "blue" : "black"}>
+        {/* <span style={{ display: "none" }}>{uniqid}</span> */}
+      </circle>
 
       <foreignObject {...foreignObjectProps}>
-        <h3 style={{ textAlign: "center" }}>{nodeDatum.name}</h3>
+        <h3 style={{ textAlign: "center" }}>{name}</h3>
       </foreignObject>
     </g>
   );

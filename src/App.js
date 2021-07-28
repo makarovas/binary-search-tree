@@ -5,6 +5,19 @@ import DBTreeView from "./components/DBTreeView";
 import CachedTreeView from "./components/CachedTreeView";
 import Sidebar from "./components/Sidebar";
 
+const getParent = function (root = [], parent) {
+  let res = {};
+  if ((!root && !root.length) || false) return null;
+  const theRoot = root[0]?.children[0]?.__rd3t.id;
+  const theParent = parent?.children[0]?.__rd3t.id;
+  if (!theRoot && !theParent) return null;
+  if (theRoot === theParent) {
+    return (res = { ...theRoot, theParent });
+  } else {
+    return getParent(root[0]?.children, parent);
+  }
+};
+
 function App() {
   const [current, setCurrent] = useState("");
   const [show, setShow] = useState([]);
@@ -13,19 +26,28 @@ function App() {
   const [text, setText] = useState();
 
   const [treeBranch, setTreeBranch] = React.useState({});
-  console.log(treeBranch);
+  // console.log(treeBranch);
   const [choosedBranch, setChoosedBranch] = React.useState([]);
   const [onApplyLoadedData, setOnClickData] = React.useState([]);
 
   React.useEffect(() => {
     if (Object.keys(treeBranch).length && treeBranch) {
+      // getParent(choosedBranch, treeBranch);
       setChoosedBranch((prev) => [...prev, treeBranch]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [treeBranch]);
 
-  const handleClick = (nodeData) => setTreeBranch(nodeData);
+  const handleClick = (nodeData, uniqid) => {
+    // const one = { uniqid, ...nodeData };
+    // console.log(one);
+    setTreeBranch(nodeData);
+  };
 
-  const passDataOnClick = () => setOnClickData(choosedBranch);
+  const passDataOnClick = () => {
+    console.log(choosedBranch);
+    setOnClickData(choosedBranch);
+  };
 
   const reset = () => {
     setData(initialState);

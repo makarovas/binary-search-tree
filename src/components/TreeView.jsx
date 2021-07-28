@@ -22,11 +22,55 @@ const nodeStyle = ({ click }) => ({
   },
 });
 
+const renderForeignObjectNode = ({
+  nodeDatum,
+  foreignObjectProps,
+  handleClick,
+}) => (
+  <Node
+    handleClick={handleClick}
+    nodeDatum={nodeDatum}
+    foreignObjectProps={foreignObjectProps}
+  />
+);
+
+export const Node = ({ nodeDatum, foreignObjectProps, handleClick }) => {
+  const [state, toggleState] = React.useState(false);
+  console.log(nodeDatum);
+  const handleClickState = () => {
+    // toggleState((prev) => !prev);
+    // // handleClick(nodeDatum, uniqid);
+    // handleClick(nodeDatum);
+  };
+  const name = nodeDatum.name.substr(0, nodeDatum.name.indexOf(","));
+  return (
+    <g onClick={handleClickState}>
+      <circle r={15} fill={state ? "blue" : "black"}>
+        {/* <span style={{ display: "none" }}>{uniqid}</span> */}
+      </circle>
+
+      <foreignObject {...foreignObjectProps}>
+        <h3 style={{ textAlign: "center" }}>{name}</h3>
+      </foreignObject>
+    </g>
+  );
+};
+
 const TreeView = ({ changeTree, branch }) => {
   const [nodeClicked, handleOnNodeClick] = React.useState(false);
+  const nodeSize = { x: 40, y: 60 };
+
+  const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
 
   return (
     <Tree
+      renderCustomNodeElement={(rd3tProps, nodeData) =>
+        renderForeignObjectNode({
+          ...rd3tProps,
+          foreignObjectProps,
+          nodeData,
+        })
+      }
       onNodeClick={handleOnNodeClick}
       onClick={changeTree}
       styles={{

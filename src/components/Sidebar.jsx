@@ -23,14 +23,14 @@ const Sidebar = ({
       >
         Edit Node value
       </button>
-      <button className="next-node-button fullwidth next-node" onClick={reset}>
-        Reset changes
-      </button>
       <button
         className="next-node-button fullwidth next-node"
         onClick={() => {}}
       >
         Apply changes to db
+      </button>
+      <button className="next-node-button fullwidth next-node" onClick={reset}>
+        Reset changes
       </button>
       <button
         className="next-node-to-cash  next-node"
@@ -39,7 +39,7 @@ const Sidebar = ({
       >
         {"<Download to the Cash<"}
       </button>
-      <input
+      {/* <input
         className="next-node-input  next-node"
         type="number"
         name="current"
@@ -56,7 +56,7 @@ const Sidebar = ({
         }}
       >
         +
-      </button>
+      </button> */}
     </div>
   );
 };

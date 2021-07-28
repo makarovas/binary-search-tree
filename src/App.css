@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
 html {
-  font-size: 10px;
+  font-family: "Roboto";
+  font-size: 12px;
 }
 * {
   -webkit-box-sizing: border-box;

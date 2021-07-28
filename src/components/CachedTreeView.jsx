@@ -29,7 +29,6 @@ const CachedTreeView = ({ treeBranch, onReset }) => {
         //     a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i
         // )
         .map((branch, index) => {
-          console.log(branch);
           return (
             <div id="treeWrapper" key={`${index} - ${branch.id}`}>
               <TreeView branch={branch} changeTree={changeTree} />
