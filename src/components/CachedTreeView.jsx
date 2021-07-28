@@ -1,8 +1,8 @@
 import React from "react";
 import TreeView from "./TreeView";
 
-const CachedTreeView = ({ treeBranch, onReset }) => {
-  const changeTree = (nodeData) => console.log(nodeData);
+const CachedTreeView = ({ treeBranch, editNodeValue }) => {
+  // const changeTree = (nodeData) => console.log(nodeData);
   const [list, setList] = React.useState([]);
 
   React.useEffect(() => {
@@ -25,7 +25,7 @@ const CachedTreeView = ({ treeBranch, onReset }) => {
         .map((branch, index) => {
           return (
             <div id="treeWrapper" key={`${index} - ${branch.id}`}>
-              <TreeView branch={branch} changeTree={changeTree} />
+              <TreeView branch={branch} editNodeValue={editNodeValue} />
             </div>
           );
         })}

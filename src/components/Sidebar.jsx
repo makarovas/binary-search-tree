@@ -1,5 +1,4 @@
 import React from "react";
-import ExibeOrdem from "./ExibeOrdem";
 
 const Sidebar = ({
   verify,
@@ -13,16 +12,27 @@ const Sidebar = ({
   reset,
   passDataOnClick,
   choosedBranch,
+  editedNodevalue,
 }) => {
+  const [customValue, setCustomValue] = React.useState(null);
+  console.log(editedNodevalue?.value?.name);
   return (
     <div className="sidebar-wrapper">
       <button
         className="next-node-button fullwidth next-node"
-        disabled={!current || isNaN(current)}
+        disabled={!editedNodevalue}
         onClick={() => searchNumber(parseInt(current, 10))}
       >
         Edit Node value
       </button>
+      <input
+        className="next-node-input  next-node"
+        type="number"
+        name="custom"
+        value={editedNodevalue?.value?.name}
+        onChange={(e) => setCustomValue(e.target.value)}
+        placeholder="Change node value"
+      />
       <button
         className="next-node-button fullwidth next-node"
         onClick={() => {}}
@@ -40,7 +50,7 @@ const Sidebar = ({
       >
         {"<<Download to the Cash<<"}
       </button>
-      {/* <input
+      <input
         className="next-node-input  next-node"
         type="number"
         name="current"
@@ -57,7 +67,7 @@ const Sidebar = ({
         }}
       >
         +
-      </button> */}
+      </button>
     </div>
   );
 };

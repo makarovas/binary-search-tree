@@ -23,7 +23,7 @@ export const Node = ({
 }) => {
   const [active, setActive] = React.useState(false);
 
-  const handleClickState = () => {
+  const toggleActiveNode = () => {
     setActive((prev) => !prev);
     // handleClick(nodeDatum, uniqid);
     handleClick(nodeDatum);
@@ -38,7 +38,7 @@ export const Node = ({
   const name = nodeDatum.name.substr(0, nodeDatum.name.indexOf(","));
 
   return (
-    <g onClick={handleClickState}>
+    <g onClick={toggleActiveNode}>
       <circle r={15} fill={active ? "blue" : "black"}>
         {/* <span style={{ display: "none" }}>{uniqid}</span> */}
       </circle>

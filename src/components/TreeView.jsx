@@ -26,26 +26,33 @@ const renderForeignObjectNode = ({
   nodeDatum,
   foreignObjectProps,
   handleClick,
+  editNodeValue,
 }) => (
   <Node
     handleClick={handleClick}
     nodeDatum={nodeDatum}
     foreignObjectProps={foreignObjectProps}
+    editNodeValue={editNodeValue}
   />
 );
 
-export const Node = ({ nodeDatum, foreignObjectProps, handleClick }) => {
-  const [state, toggleState] = React.useState(false);
-  console.log(nodeDatum);
-  const handleClickState = () => {
-    // toggleState((prev) => !prev);
-    // // handleClick(nodeDatum, uniqid);
-    // handleClick(nodeDatum);
+export const Node = ({ nodeDatum, foreignObjectProps, editNodeValue }) => {
+  // toggleState((prev) => !prev);
+  // // handleClick(nodeDatum, uniqid);
+  // handleClick(nodeDatum);
+  const [active, setActive] = React.useState({
+    value: null,
+    status: false,
+  });
+
+  const toggleActiveNode = () => {
+    setActive((prev) => ({ ...prev, status: !prev.status }));
+    editNodeValue((prev) => ({ ...prev, value: nodeDatum }));
   };
   const name = nodeDatum.name.substr(0, nodeDatum.name.indexOf(","));
   return (
-    <g onClick={handleClickState}>
-      <circle r={15} fill={state ? "blue" : "black"}>
+    <g onClick={toggleActiveNode}>
+      <circle r={15} fill={active.status ? "blue" : "black"}>
         {/* <span style={{ display: "none" }}>{uniqid}</span> */}
       </circle>
 
@@ -56,11 +63,11 @@ export const Node = ({ nodeDatum, foreignObjectProps, handleClick }) => {
   );
 };
 
-const TreeView = ({ changeTree, branch }) => {
-  const [nodeClicked, handleOnNodeClick] = React.useState(false);
-  const nodeSize = { x: 40, y: 60 };
+const nodeSize = { x: 40, y: 60 };
+const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
 
-  const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
+const TreeView = ({ editNodeValue, branch, cacheMode, changeValue }) => {
+  const [nodeClicked, handleOnNodeClick] = React.useState(false);
 
   return (
     <Tree
@@ -69,10 +76,11 @@ const TreeView = ({ changeTree, branch }) => {
           ...rd3tProps,
           foreignObjectProps,
           nodeData,
+          editNodeValue,
         })
       }
       onNodeClick={handleOnNodeClick}
-      onClick={changeTree}
+      // onClick={cacheMode ? changeValue : changeTree}
       styles={{
         nodes: {
           node: {

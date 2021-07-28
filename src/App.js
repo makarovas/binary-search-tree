@@ -20,15 +20,14 @@ const getParent = function (root = [], parent) {
 
 function App() {
   const [current, setCurrent] = useState("");
-  const [show, setShow] = useState([]);
+  const [show] = useState([]);
   const [data, setData] = useState(initialState);
   const [verify, setVerify] = useState(false);
   const [text, setText] = useState();
-
   const [treeBranch, setTreeBranch] = React.useState({});
-  // console.log(treeBranch);
   const [choosedBranch, setChoosedBranch] = React.useState([]);
   const [onApplyLoadedData, setOnClickData] = React.useState([]);
+  const [editedNodevalue, editNodeValue] = React.useState(null);
 
   React.useEffect(() => {
     if (Object.keys(treeBranch).length && treeBranch) {
@@ -162,7 +161,11 @@ function App() {
   return (
     <main className="App">
       <div className="tree-container">
-        <CachedTreeView treeBranch={onApplyLoadedData} onReset={reset} />
+        <CachedTreeView
+          treeBranch={onApplyLoadedData}
+          onReset={reset}
+          editNodeValue={editNodeValue}
+        />
         <DBTreeView
           data={formatData(data)}
           handleClick={handleClick}
@@ -172,6 +175,7 @@ function App() {
       </div>
 
       <Sidebar
+        editedNodevalue={editedNodevalue}
         current={current}
         setCurrent={setCurrent}
         insert={insert}
