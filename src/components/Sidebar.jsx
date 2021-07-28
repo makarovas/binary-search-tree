@@ -26,8 +26,9 @@ const Sidebar = ({
       <button
         className="next-node-button fullwidth next-node"
         onClick={() => {}}
+        disabled={Boolean(!choosedBranch.length)}
       >
-        Apply changes to db
+        {">>Apply changes to db>>"}
       </button>
       <button className="next-node-button fullwidth next-node" onClick={reset}>
         Reset changes
@@ -37,7 +38,7 @@ const Sidebar = ({
         onClick={passDataOnClick}
         disabled={Boolean(!choosedBranch.length)}
       >
-        {"<Download to the Cash<"}
+        {"<<Download to the Cash<<"}
       </button>
       {/* <input
         className="next-node-input  next-node"

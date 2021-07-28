@@ -13,12 +13,6 @@ const CachedTreeView = ({ treeBranch, onReset }) => {
     }
   }, [treeBranch]);
 
-  React.useCallback(() => {
-    if (onReset) {
-      setList([]);
-    }
-  }, [onReset]);
-
   return (
     <div className="branchWrapper">
       {treeBranch

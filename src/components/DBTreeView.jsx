@@ -14,18 +14,32 @@ const containerStyles = {
 // };
 
 // const uniqid = uuid();
-export const Node = ({ nodeDatum, foreignObjectProps, handleClick }) => {
-  const [state, toggleState] = React.useState(false);
+export const Node = ({
+  nodeDatum,
+  foreignObjectProps,
+  handleClick,
+  onReset,
+  treeBranch,
+}) => {
+  const [active, setActive] = React.useState(false);
 
   const handleClickState = () => {
-    toggleState((prev) => !prev);
+    setActive((prev) => !prev);
     // handleClick(nodeDatum, uniqid);
     handleClick(nodeDatum);
   };
+
+  React.useEffect(() => {
+    if (!Object.keys(treeBranch).length) {
+      setActive(false);
+    }
+  }, [treeBranch]);
+
   const name = nodeDatum.name.substr(0, nodeDatum.name.indexOf(","));
+
   return (
     <g onClick={handleClickState}>
-      <circle r={15} fill={state ? "blue" : "black"}>
+      <circle r={15} fill={active ? "blue" : "black"}>
         {/* <span style={{ display: "none" }}>{uniqid}</span> */}
       </circle>
 
@@ -40,15 +54,19 @@ const renderForeignObjectNode = ({
   nodeDatum,
   foreignObjectProps,
   handleClick,
+  onReset,
+  treeBranch,
 }) => (
   <Node
+    onReset={onReset}
     handleClick={handleClick}
     nodeDatum={nodeDatum}
     foreignObjectProps={foreignObjectProps}
+    treeBranch={treeBranch}
   />
 );
 
-const DBTreeView = ({ data, handleClick }) => {
+const DBTreeView = ({ data, handleClick, onReset, treeBranch }) => {
   const nodeSize = { x: 40, y: 60 };
 
   const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
@@ -59,6 +77,8 @@ const DBTreeView = ({ data, handleClick }) => {
         renderCustomNodeElement={(rd3tProps, nodeData) =>
           renderForeignObjectNode({
             ...rd3tProps,
+            treeBranch,
+            onReset,
             foreignObjectProps,
             handleClick,
             nodeData,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./App.css";
 import { initialState } from "./initData";
 import DBTreeView from "./components/DBTreeView";
@@ -53,6 +53,7 @@ function App() {
     setData(initialState);
     setTreeBranch({});
     setOnClickData([]);
+    setChoosedBranch([]);
   };
 
   function Node(value) {
@@ -162,7 +163,12 @@ function App() {
     <main className="App">
       <div className="tree-container">
         <CachedTreeView treeBranch={onApplyLoadedData} onReset={reset} />
-        <DBTreeView data={formatData(data)} handleClick={handleClick} />
+        <DBTreeView
+          data={formatData(data)}
+          handleClick={handleClick}
+          onReset={reset}
+          treeBranch={onApplyLoadedData}
+        />
       </div>
 
       <Sidebar
