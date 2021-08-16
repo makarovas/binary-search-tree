@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Tree from "react-d3-tree";
 // import uuid from "uuid";
 
@@ -29,7 +29,9 @@ export const Node = ({
     handleClick(nodeDatum);
   };
 
-  React.useEffect(() => {
+  // useEffect(() => setActive((prev) => !prev), [onReset]);
+
+  useEffect(() => {
     if (!Object.keys(treeBranch).length) {
       setActive(false);
     }
@@ -66,11 +68,10 @@ const renderForeignObjectNode = ({
   />
 );
 
+const nodeSize = { x: 40, y: 60 };
+const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
+
 const DBTreeView = ({ data, handleClick, onReset, treeBranch }) => {
-  const nodeSize = { x: 40, y: 60 };
-
-  const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
-
   return (
     <div id="treeWrapper">
       <Tree

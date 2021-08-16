@@ -26,20 +26,21 @@ const renderForeignObjectNode = ({
   nodeDatum,
   foreignObjectProps,
   handleClick,
-  editNodeValue,
+  editCashedNodeValue,
 }) => (
   <Node
     handleClick={handleClick}
     nodeDatum={nodeDatum}
     foreignObjectProps={foreignObjectProps}
-    editNodeValue={editNodeValue}
+    editCashedNodeValue={editCashedNodeValue}
   />
 );
 
-export const Node = ({ nodeDatum, foreignObjectProps, editNodeValue }) => {
-  // toggleState((prev) => !prev);
-  // // handleClick(nodeDatum, uniqid);
-  // handleClick(nodeDatum);
+export const Node = ({
+  nodeDatum,
+  foreignObjectProps,
+  editCashedNodeValue,
+}) => {
   const [active, setActive] = React.useState({
     value: null,
     status: false,
@@ -47,15 +48,13 @@ export const Node = ({ nodeDatum, foreignObjectProps, editNodeValue }) => {
 
   const toggleActiveNode = () => {
     setActive((prev) => ({ ...prev, status: !prev.status }));
-    editNodeValue((prev) => ({ ...prev, value: nodeDatum }));
+  
+    editCashedNodeValue((prev) => ({ ...prev, value: nodeDatum }));
   };
   const name = nodeDatum.name.substr(0, nodeDatum.name.indexOf(","));
   return (
     <g onClick={toggleActiveNode}>
-      <circle r={15} fill={active.status ? "blue" : "black"}>
-        {/* <span style={{ display: "none" }}>{uniqid}</span> */}
-      </circle>
-
+      <circle r={15} fill={active.status ? "blue" : "black"} />
       <foreignObject {...foreignObjectProps}>
         <h3 style={{ textAlign: "center" }}>{name}</h3>
       </foreignObject>
@@ -66,7 +65,7 @@ export const Node = ({ nodeDatum, foreignObjectProps, editNodeValue }) => {
 const nodeSize = { x: 40, y: 60 };
 const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
 
-const TreeView = ({ editNodeValue, branch, cacheMode, changeValue }) => {
+const TreeView = ({ editCashedNodeValue, branch, cacheMode, changeValue }) => {
   const [nodeClicked, handleOnNodeClick] = React.useState(false);
 
   return (
@@ -76,7 +75,7 @@ const TreeView = ({ editNodeValue, branch, cacheMode, changeValue }) => {
           ...rd3tProps,
           foreignObjectProps,
           nodeData,
-          editNodeValue,
+          editCashedNodeValue,
         })
       }
       onNodeClick={handleOnNodeClick}

@@ -1,42 +1,93 @@
 import React from "react";
 
 const Sidebar = ({
-  verify,
-  text,
-  array,
-  searchNumber,
-  current,
-  setCurrent,
-  insert,
-  data,
+  // verify,
+  // text,
+  // array,
+  // searchNumber,
+  // current,
+  // setCurrent,
+  // insert,
+  // data,
+  onApplyLoadedData,
   reset,
-  passDataOnClick,
+  passBranchDataOnClick,
   choosedBranch,
-  editedNodevalue,
+  cashedNodeValue,
+  // editCashedNodeValue,
 }) => {
-  const [customValue, setCustomValue] = React.useState(null);
-  console.log(editedNodevalue?.value?.name);
+  const name =
+    typeof cashedNodeValue === "string"
+      ? cashedNodeValue
+      : cashedNodeValue?.value.name || "";
+  const getValue = name.substring(0, name.indexOf(","));
+
+  const extractId = cashedNodeValue?.value.name;
+  const id = extractId
+    ? extractId.substring(extractId.length - 37).substring(0, 36)
+    : "";
+
+  const [inputValue, setCustomValue] = React.useState({
+    value: getValue,
+    id,
+  });
+
+  const [editedList, setEditedList] = React.useState([]);
+
+  const pushList = () => {
+    setEditedList((prev) => {
+      if (!inputValue.value || !inputValue.id) return;
+      // console.log(prev);
+      // let isEqualValueInArray =
+      //   prev &&
+      //   prev.every(
+      //     (element) =>
+      //       element.id === inputValue.id && element.value === inputValue.value
+      //   );
+      // if (isEqualValueInArray) return;
+      // if (prev) {
+      //   console.log(prev);
+      return [...prev, inputValue];
+      // }
+    });
+  };
+
+  const handleChange = (e) => {
+    let value = e.target.value;
+    if (value) {
+      setCustomValue((prev) => ({ ...prev, value, id }));
+    }
+  };
+
+  React.useEffect(() => {
+    if (getValue) {
+      setCustomValue((prev) => ({ ...prev, value: getValue, id }));
+    }
+    //reset
+  }, [getValue, id]);
+
   return (
     <div className="sidebar-wrapper">
       <button
         className="next-node-button fullwidth next-node"
-        disabled={!editedNodevalue}
-        onClick={() => searchNumber(parseInt(current, 10))}
+        // disabled={!cashedNodeValue}
+        onClick={pushList}
       >
         Edit Node value
       </button>
       <input
         className="next-node-input  next-node"
-        type="number"
+        type="text"
         name="custom"
-        value={editedNodevalue?.value?.name}
-        onChange={(e) => setCustomValue(e.target.value)}
+        value={inputValue.value}
+        // onChange={(e) => setCustomValue(e.target.value)}
+        onChange={handleChange}
         placeholder="Change node value"
       />
       <button
         className="next-node-button fullwidth next-node"
-        onClick={() => {}}
-        disabled={Boolean(!choosedBranch.length)}
+        onClick={() => console.log(editedList)}
+        disabled={Boolean(!onApplyLoadedData.length)}
       >
         {">>Apply changes to db>>"}
       </button>
@@ -45,20 +96,20 @@ const Sidebar = ({
       </button>
       <button
         className="next-node-to-cash  next-node"
-        onClick={passDataOnClick}
+        onClick={passBranchDataOnClick}
         disabled={Boolean(!choosedBranch.length)}
       >
         {"<<Download to the Cash<<"}
       </button>
-      <input
+      {/* <input
         className="next-node-input  next-node"
         type="number"
         name="current"
         value={current}
         onChange={(e) => setCurrent(e.target.value)}
         placeholder="Enter node to the tree"
-      />
-      <button
+      /> */}
+      {/* <button
         className="next-node-button fullwidth next-node"
         disabled={!current || isNaN(current)}
         onClick={() => {
@@ -67,7 +118,7 @@ const Sidebar = ({
         }}
       >
         +
-      </button>
+      </button> */}
     </div>
   );
 };
